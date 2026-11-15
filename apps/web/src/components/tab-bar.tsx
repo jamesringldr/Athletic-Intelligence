@@ -13,7 +13,7 @@ const TABS = [
   },
   {
     label: "Progress",
-    href: "/leaderboard",
+    href: "/performance",
     icon: "M2 12h4l2-5 4 10 3-8 2 3h5",
   },
   { label: "Add", href: "#", icon: "M12 5v14M5 12h14", filled: true },

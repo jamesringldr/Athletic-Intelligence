@@ -146,7 +146,10 @@ export default function Plan() {
 
       <section className="mt-6">
         <SectionHeading title="Today's workout" />
-        <div className="relative mt-4 min-h-[200px] overflow-hidden rounded-md border border-line bg-surface-200">
+        <Link
+          href="/workout"
+          className="relative mt-4 block min-h-[200px] overflow-hidden rounded-md border border-line bg-surface-200"
+        >
           <div className="relative z-10 flex h-full min-h-[200px] w-[58%] flex-col justify-between p-4">
             <span className="inline-flex h-8 w-fit items-center gap-2 rounded-md border border-line px-3 text-xs font-semibold text-ink">
               <Icon d="M13 2 4 14h7l-1 8 9-12h-7Z" className="h-3.5 w-3.5" />
@@ -168,15 +171,14 @@ export default function Plan() {
                 />
                 45 minutes
               </span>
-              <button
-                type="button"
-                aria-label="Start workout"
+              <span
+                aria-hidden
                 className="flex h-9 w-9 items-center justify-center rounded-md border border-accent text-accent"
               >
                 <svg aria-hidden viewBox="0 0 24 24" className="h-4 w-4">
                   <path d="M8 5v14l11-7Z" fill="currentColor" />
                 </svg>
-              </button>
+              </span>
             </div>
           </div>
           <div className="absolute inset-y-0 right-0 w-[42%]">
@@ -188,7 +190,7 @@ export default function Plan() {
               className="object-cover object-[30%_60%]"
             />
           </div>
-        </div>
+        </Link>
       </section>
 
       <section className="mt-6">
