@@ -23,8 +23,8 @@ const TABS = [
     icon: "M12 3l2 6 6 2-6 2-2 6-2-6-6-2 6-2Z",
   },
   {
-    label: "Profile",
-    href: "#",
+    label: "Workout",
+    href: "/workout",
     icon: "M3 9v6M6 7v10M18 7v10M21 9v6M6 12h12",
   },
 ];
