@@ -74,7 +74,7 @@ export function Chat({ generatePlan = false }: { generatePlan?: boolean }) {
   return (
     <main className="relative flex h-dvh flex-col bg-surface-100 px-6 pt-4">
       <header className="flex items-center justify-between">
-        <Link href="/home" aria-label="Back" className={headerBtn}>
+        <Link href="/" aria-label="Back" className={headerBtn}>
           <Icon d="M15 5l-7 7 7 7" className="h-5 w-5" />
         </Link>
         <h1 className="text-[17px] font-medium text-ink">New chat</h1>

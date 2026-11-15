@@ -8,7 +8,7 @@ import { Icon } from "./icon";
 const TABS = [
   {
     label: "Home",
-    href: "/home",
+    href: "/",
     icon: "M4 20V4M4 20h16M8 15l4-4 3 3 5-6",
   },
   {
@@ -51,7 +51,7 @@ const ADD_ITEMS = [
 export function TabBar() {
   const [addOpen, setAddOpen] = useState(false);
   // Highlight the tab for the current page; other pages (plan, invite) keep Home lit.
-  const pathname = usePathname().replace(/\/$/, "");
+  const pathname = usePathname().replace(/(.)\/$/, "$1");
   const found = TABS.findIndex((t) => t.href !== "#" && t.href === pathname);
   const active = found === -1 ? 0 : found;
 
