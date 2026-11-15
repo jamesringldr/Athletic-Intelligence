@@ -8,7 +8,7 @@ import { Icon } from "./icon";
 const TABS = [
   {
     label: "Home",
-    href: "/",
+    href: "/dashboard",
     icon: "M4 20V4M4 20h16M8 15l4-4 3 3 5-6",
   },
   {
