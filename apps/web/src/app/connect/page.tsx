@@ -99,7 +99,8 @@ export default function Connect() {
   useEffect(() => {
     if (phase === "idle") return;
     const t = setTimeout(
-      () => (phase === "loading" ? setPhase("done") : router.push("/")),
+      () =>
+        phase === "loading" ? setPhase("done") : router.push("/dashboard"),
       phase === "loading" ? 2500 : 1800,
     );
     return () => clearTimeout(t);
