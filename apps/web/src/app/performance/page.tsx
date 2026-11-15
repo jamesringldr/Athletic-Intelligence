@@ -31,6 +31,7 @@ const RINGS = [
 ];
 
 const RUNS = [3.2, 8.5, 5.1, 9.5, 9.6, 12.6]; // miles per run
+const PLAN = [4, 6, 6, 8, 9, 10]; // scheduled baseline, miles per run
 const RUN_DATES = ["Nov 3", "Nov 5", "Nov 7", "Nov 9", "Nov 11", "Nov 13"];
 
 // Chart geometry (viewBox units).
@@ -42,15 +43,21 @@ const Y_MAX = 15;
 const yFor = (v: number) => Y_BOTTOM - (v / Y_MAX) * (Y_BOTTOM - Y_TOP);
 const xFor = (i: number) => X0 + (i * (X1 - X0)) / (RUNS.length - 1);
 
-const linePath = RUNS.map((v, i) => {
-  const x = xFor(i);
-  const y = yFor(v);
-  if (i === 0) return `M${x} ${y}`;
-  const px = xFor(i - 1);
-  const py = yFor(RUNS[i - 1]);
-  const mid = (px + x) / 2;
-  return `C${mid} ${py} ${mid} ${y} ${x} ${y}`;
-}).join(" ");
+const smoothPath = (values: number[]) =>
+  values
+    .map((v, i) => {
+      const x = xFor(i);
+      const y = yFor(v);
+      if (i === 0) return `M${x} ${y}`;
+      const px = xFor(i - 1);
+      const py = yFor(values[i - 1]);
+      const mid = (px + x) / 2;
+      return `C${mid} ${py} ${mid} ${y} ${x} ${y}`;
+    })
+    .join(" ");
+
+const linePath = smoothPath(RUNS);
+const planPath = smoothPath(PLAN);
 const areaPath = `${linePath} L${X1} ${Y_BOTTOM} L${X0} ${Y_BOTTOM} Z`;
 
 const R = 40;
@@ -165,11 +172,41 @@ export default function Performance() {
             </button>
           </div>
 
+          <div className="mt-4 flex items-center gap-6 text-sm text-ink-muted">
+            <span className="flex items-center gap-2">
+              <svg aria-hidden viewBox="0 0 20 4" className="h-1 w-5">
+                <line
+                  x1="0"
+                  x2="20"
+                  y1="2"
+                  y2="2"
+                  stroke="var(--accent)"
+                  strokeWidth="2.5"
+                />
+              </svg>
+              Actual
+            </span>
+            <span className="flex items-center gap-2">
+              <svg aria-hidden viewBox="0 0 20 4" className="h-1 w-5">
+                <line
+                  x1="0"
+                  x2="20"
+                  y1="2"
+                  y2="2"
+                  stroke="var(--ink-muted)"
+                  strokeWidth="2"
+                  strokeDasharray="5 3"
+                />
+              </svg>
+              Plan
+            </span>
+          </div>
+
           <svg
             role="img"
-            aria-label="Distance per run in miles, trending up from 3.2 to 12.6"
+            aria-label="Distance per run in miles. Actual runs rise from 3.2 to 12.6; the scheduled plan rises from 4 to 10."
             viewBox="0 0 300 172"
-            className="mt-6 w-full"
+            className="mt-4 w-full"
           >
             {[0, 3, 6, 9, 12, 15].map((t) => (
               <g key={t}>
@@ -192,6 +229,13 @@ export default function Performance() {
                 </text>
               </g>
             ))}
+            <path
+              d={planPath}
+              fill="none"
+              stroke="var(--ink-muted)"
+              strokeWidth="2"
+              strokeDasharray="6 5"
+            />
             <path d={areaPath} fill="var(--accent)" fillOpacity="0.12" />
             <path
               d={linePath}
