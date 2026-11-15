@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Icon } from "./icon";
 
@@ -10,7 +11,11 @@ const TABS = [
     href: "/home",
     icon: "M4 20V4M4 20h16M8 15l4-4 3 3 5-6",
   },
-  { label: "Progress", href: "#", icon: "M2 12h4l2-5 4 10 3-8 2 3h5" },
+  {
+    label: "Progress",
+    href: "/leaderboard",
+    icon: "M2 12h4l2-5 4 10 3-8 2 3h5",
+  },
   { label: "Add", href: "#", icon: "M12 5v14M5 12h14", filled: true },
   {
     label: "Coach",
@@ -45,6 +50,10 @@ const ADD_ITEMS = [
 
 export function TabBar() {
   const [addOpen, setAddOpen] = useState(false);
+  // Highlight the tab for the current page; other pages (plan, invite) keep Home lit.
+  const pathname = usePathname().replace(/\/$/, "");
+  const found = TABS.findIndex((t) => t.href !== "#" && t.href === pathname);
+  const active = found === -1 ? 0 : found;
 
   useEffect(() => {
     if (!addOpen) return;
@@ -65,7 +74,7 @@ export function TabBar() {
           const className = `flex h-12 w-16 items-center justify-center rounded-md ${
             t.filled
               ? "bg-accent text-white"
-              : i === 0
+              : i === active
                 ? "text-accent"
                 : "text-ink-muted"
           }`;
@@ -86,7 +95,7 @@ export function TabBar() {
               key={t.label}
               href={t.href}
               aria-label={t.label}
-              aria-current={i === 0 ? "page" : undefined}
+              aria-current={i === active ? "page" : undefined}
               className={className}
             >
               <Icon d={t.icon} className="h-6 w-6" />

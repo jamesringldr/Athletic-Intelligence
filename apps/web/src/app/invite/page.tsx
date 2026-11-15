@@ -33,7 +33,7 @@ export default function Invite() {
     );
 
   return (
-    <main className="min-h-dvh bg-surface-100 px-4 pb-12 pt-4">
+    <main className="min-h-dvh bg-surface-100 px-6 pb-16 pt-4">
       <header className="flex items-center justify-between">
         <Link
           href="/plan"
@@ -42,21 +42,21 @@ export default function Invite() {
         >
           <Icon d="M15 5l-7 7 7 7" className="h-6 w-6" />
         </Link>
-        <h1 className="text-xl font-medium text-ink">Invite Friends</h1>
+        <h1 className="text-xl font-medium text-ink">Invite Challengers</h1>
         <span className="w-12" aria-hidden />
       </header>
 
-      <ul className="mt-4">
+      <ul className="mt-6">
         {CONTACTS.map((c) => {
           const on = invited.includes(c.name);
           return (
             <li
               key={c.name}
-              className="flex items-center gap-3 border-b border-line py-3 last:border-b-0"
+              className="flex items-center gap-4 border-b border-line py-5 last:border-b-0"
             >
               <span
                 aria-hidden
-                className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-surface-300 text-sm font-semibold text-ink"
+                className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-surface-300 text-sm font-semibold text-ink"
               >
                 {initials(c.name)}
               </span>
@@ -64,14 +64,14 @@ export default function Invite() {
                 <p className="truncate text-base font-medium text-ink">
                   {c.name}
                 </p>
-                <p className="text-sm text-ink-muted">{c.phone}</p>
+                <p className="mt-1 text-sm text-ink-muted">{c.phone}</p>
               </div>
               <button
                 type="button"
                 aria-pressed={on}
                 aria-label={`${on ? "Cancel invite for" : "Invite"} ${c.name}`}
                 onClick={() => toggle(c.name)}
-                className={`h-9 w-[76px] shrink-0 rounded-md border text-sm font-semibold ${
+                className={`h-10 w-[84px] shrink-0 rounded-md border text-sm font-semibold ${
                   on
                     ? "border-line text-ink-muted"
                     : "border-accent bg-accent text-white"
